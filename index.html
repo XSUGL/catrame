@@ -3,205 +3,229 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Котик Тойбокс — питомец</title>
+    <title>Labubu Cat — питомец</title>
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
 
-    <!-- ═══════════════════════════════════════════════
+    <!-- ══════════════════════════════════════════════════
          UNBOXING SCREEN
-         ═══════════════════════════════════════════════ -->
+         ══════════════════════════════════════════════════ -->
     <div id="unboxingScreen">
-      <canvas id="ubParticleCanvas" style="position:absolute;inset:0;pointer-events:none;width:100%;height:100%;"></canvas>
+      <canvas id="ubParticleCanvas"></canvas>
 
-      <div class="ub-title">✦ Digital Toybox Cat ✦</div>
+      <div class="ub-title">✦ Labubu Cat ✦</div>
 
       <div class="ub-stage" id="ubStage" role="button" tabindex="0" aria-label="Открыть коробку">
         <div class="ub-shadow"></div>
         <div class="ub-box" id="ubBox">
-
-          <!-- Lid halves (fly open on click) -->
           <div class="ub-box__lid">
             <div class="ub-box__lid-l" aria-hidden="true"></div>
             <div class="ub-box__lid-r" aria-hidden="true"></div>
           </div>
-
-          <!-- Inner glow when opened -->
           <div class="ub-box__inner-glow" aria-hidden="true"></div>
 
-          <!-- Cat silhouette rising from box -->
+          <!-- Cat silhouette using the actual skin colors from head.png -->
           <div class="ub-cat-reveal" aria-hidden="true">
             <div class="ub-cat-sil">
-              <!-- Mini CSS cat silhouette -->
+              <!-- Body shape -->
               <div style="
-                position:absolute; left:50%; top:50%;
-                transform:translate(-50%,-52%);
-                width:110px; height:130px;
-                background: radial-gradient(circle at 30% 22%, rgba(255,255,255,.55), transparent 48%),
-                            linear-gradient(175deg, rgba(122,245,200,.45), rgba(201,184,255,.55));
-                border-radius: 52% 48% 54% 46% / 55% 48% 52% 45%;
-                box-shadow: 0 0 40px rgba(122,245,200,.55), 0 0 80px rgba(160,138,238,.40);
+                position:absolute; left:50%; top:52%;
+                transform:translate(-50%,-50%);
+                width:100px; height:120px;
+                background-color: #e2cbb4;
+                background: radial-gradient(circle at 30% 22%, rgba(255,255,255,.50), transparent 46%),
+                            radial-gradient(ellipse at 55% 72%, #d4a090 0%, transparent 46%),
+                            linear-gradient(165deg, #e5d0b8, #d4b89a);
+                border-radius: 46% 54% 52% 48% / 50% 46% 54% 50%;
+                box-shadow: 0 0 30px rgba(255,190,110,.50), 0 0 60px rgba(240,180,100,.30);
               "></div>
               <!-- Ears -->
-              <div style="position:absolute;left:50%;top:18%;transform:translate(-82%,-55%);
-                width:38px;height:50px;
-                background:linear-gradient(175deg,rgba(122,245,200,.42),rgba(201,184,255,.28));
-                border-radius:36px 36px 14px 14px;transform-origin:bottom center;transform:translateX(-160%) rotate(-18deg);
-                box-shadow:0 0 20px rgba(122,245,200,.40);"></div>
-              <div style="position:absolute;right:50%;top:18%;
-                width:38px;height:50px;
-                background:linear-gradient(175deg,rgba(122,245,200,.42),rgba(201,184,255,.28));
-                border-radius:36px 36px 14px 14px;transform-origin:bottom center;transform:translateX(160%) rotate(18deg);
-                box-shadow:0 0 20px rgba(122,245,200,.40);"></div>
-              <!-- Eyes glow -->
-              <div style="position:absolute;left:35%;top:38%;
-                width:22px;height:22px;border-radius:50%;
-                background:rgba(122,245,200,.90);
-                box-shadow:0 0 12px rgba(122,245,200,.9),0 0 24px rgba(122,245,200,.5);"></div>
-              <div style="position:absolute;right:35%;top:38%;
-                width:22px;height:22px;border-radius:50%;
-                background:rgba(122,245,200,.90);
-                box-shadow:0 0 12px rgba(122,245,200,.9),0 0 24px rgba(122,245,200,.5);"></div>
+              <div style="position:absolute;left:22%;top:8%;
+                width:28px;height:36px;
+                background: radial-gradient(circle at 38% 28%, rgba(255,255,255,.42), transparent 46%), linear-gradient(165deg,#e0cbb8,#ccb09a);
+                border-radius:55px 55px 18px 18px;transform:rotate(-18deg);
+                box-shadow:0 0 15px rgba(255,190,110,.40);"></div>
+              <div style="position:absolute;right:22%;top:8%;
+                width:28px;height:36px;
+                background: radial-gradient(circle at 38% 28%, rgba(255,255,255,.42), transparent 46%), linear-gradient(165deg,#e0cbb8,#ccb09a);
+                border-radius:55px 55px 18px 18px;transform:rotate(18deg);
+                box-shadow:0 0 15px rgba(255,190,110,.40);"></div>
+              <!-- Eyes -->
+              <div style="position:absolute;left:28%;top:36%;
+                width:20px;height:24px;border-radius:50%;
+                background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.88),rgba(255,255,255,.28) 40%,rgba(0,0,0,.05) 100%);
+                box-shadow:0 0 10px rgba(255,220,150,.65);"></div>
+              <div style="position:absolute;right:28%;top:36%;
+                width:20px;height:24px;border-radius:50%;
+                background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.88),rgba(255,255,255,.28) 40%,rgba(0,0,0,.05) 100%);
+                box-shadow:0 0 10px rgba(255,220,150,.65);"></div>
             </div>
           </div>
 
-          <!-- Box body -->
           <div class="ub-box__bottom" aria-hidden="true"></div>
         </div>
-
-        <!-- Hover ring -->
-        <div class="ub-ring" aria-hidden="true"></div>
       </div>
 
-      <div class="ub-hint" id="ubHint">
-        нажми, чтобы открыть <span>•••</span>
-      </div>
+      <div class="ub-hint" id="ubHint">нажми, чтобы открыть</div>
     </div>
 
 
-    <!-- ═══════════════════════════════════════════════
-         MAIN APP (hidden until unboxing done)
-         ═══════════════════════════════════════════════ -->
+    <!-- ══════════════════════════════════════════════════
+         MAIN APP
+         ══════════════════════════════════════════════════ -->
     <div class="app" id="mainApp">
       <header class="topbar">
         <div class="brand">
           <div class="brand__mark" aria-hidden="true"></div>
           <div class="brand__text">
-            <div class="brand__title">TOYBOX CAT</div>
-            <div class="brand__subtitle">игра-питомец без бэкенда</div>
+            <div class="brand__title">LABUBU CAT</div>
+            <div class="brand__subtitle">virtual toy pet</div>
           </div>
         </div>
 
         <div class="topbar__stats">
-          <div class="coins">
-            <span class="coins__icon" aria-hidden="true">🪙</span>
-            <span class="coins__value" id="coins">0</span>
-          </div>
           <div class="level">
-            <span class="level__label">УРОВЕНЬ</span>
+            <span class="level__label">LEVEL</span>
             <span class="level__value" id="level">1</span>
-            <span class="level__sep" aria-hidden="true">•</span>
+            <span class="level__sep">👑</span>
             <span class="level__xp" id="xpText">0 / 100</span>
           </div>
-          <button class="btn btn--ghost btn--compact" id="btnShare" type="button" aria-label="Поделиться карточкой котика">
-            Поделиться
-          </button>
+          <div class="coins">
+            <span class="coins__icon">🪙</span>
+            <span class="coins__value" id="coins">0</span>
+            <span style="color:var(--text3);font-size:11px;font-weight:800;">COINS</span>
+          </div>
+          <button class="btn btn--ghost btn--compact" id="btnShare" type="button">Share</button>
         </div>
       </header>
 
       <main class="layout">
+        <!-- ── LEFT PANEL: Circular Stat Rings ── -->
         <section class="panel panel--left">
-          <h2 class="panel__title">Состояние</h2>
+          <h2 class="panel__title">Stats</h2>
 
-          <div class="stat">
-            <div class="stat__row">
-              <div class="stat__label">ГОЛОД</div>
-              <div class="stat__value" id="hungerText">0</div>
+          <!-- Circular rings like gamestyle.png -->
+          <div class="stats-circles">
+            <div class="stat-circle">
+              <div class="stat-ring stat-ring--hunger" id="ringHunger">
+                <svg viewBox="0 0 60 60">
+                  <circle class="stat-ring__bg" cx="30" cy="30" r="25"/>
+                  <circle class="stat-ring__fill" cx="30" cy="30" r="25"
+                    stroke-dasharray="157" stroke-dashoffset="31" id="ringHungerFill"/>
+                </svg>
+                <div class="stat-ring__icon">🍔</div>
+                <div class="stat-ring__pct" id="hungerPct">80%</div>
+              </div>
+              <div class="stat-circle__label">Hunger</div>
             </div>
-            <div class="bar">
-              <div class="bar__fill bar__fill--hunger" id="barHunger" style="--p:0%"></div>
+
+            <div class="stat-circle">
+              <div class="stat-ring stat-ring--energy" id="ringEnergy">
+                <svg viewBox="0 0 60 60">
+                  <circle class="stat-ring__bg" cx="30" cy="30" r="25"/>
+                  <circle class="stat-ring__fill" cx="30" cy="30" r="25"
+                    stroke-dasharray="157" stroke-dashoffset="94" id="ringEnergyFill"/>
+                </svg>
+                <div class="stat-ring__icon">⚡</div>
+                <div class="stat-ring__pct" id="energyPct">40%</div>
+              </div>
+              <div class="stat-circle__label">Energy</div>
+            </div>
+
+            <div class="stat-circle">
+              <div class="stat-ring stat-ring--mood" id="ringMood">
+                <svg viewBox="0 0 60 60">
+                  <circle class="stat-ring__bg" cx="30" cy="30" r="25"/>
+                  <circle class="stat-ring__fill" cx="30" cy="30" r="25"
+                    stroke-dasharray="157" stroke-dashoffset="8" id="ringMoodFill"/>
+                </svg>
+                <div class="stat-ring__icon">❤️</div>
+                <div class="stat-ring__pct" id="moodPct">95%</div>
+              </div>
+              <div class="stat-circle__label">Mood</div>
+            </div>
+
+            <div class="stat-circle">
+              <div class="stat-ring stat-ring--clean" id="ringClean">
+                <svg viewBox="0 0 60 60">
+                  <circle class="stat-ring__bg" cx="30" cy="30" r="25"/>
+                  <circle class="stat-ring__fill" cx="30" cy="30" r="25"
+                    stroke-dasharray="157" stroke-dashoffset="31" id="ringCleanFill"/>
+                </svg>
+                <div class="stat-ring__icon">🫧</div>
+                <div class="stat-ring__pct" id="cleanPct">80%</div>
+              </div>
+              <div class="stat-circle__label">Clean</div>
             </div>
           </div>
 
-          <div class="stat">
-            <div class="stat__row">
-              <div class="stat__label">ЭНЕРГИЯ</div>
-              <div class="stat__value" id="energyText">100</div>
+          <!-- Hidden legacy bars (used by original script) -->
+          <div style="display:none;">
+            <div class="stat">
+              <div class="stat__row"><div class="stat__label">ГОЛОД</div><div class="stat__value" id="hungerText">0</div></div>
+              <div class="bar"><div class="bar__fill bar__fill--hunger" id="barHunger" style="--p:0%"></div></div>
             </div>
-            <div class="bar">
-              <div class="bar__fill bar__fill--energy" id="barEnergy" style="--p:100%"></div>
+            <div class="stat">
+              <div class="stat__row"><div class="stat__label">ЭНЕРГИЯ</div><div class="stat__value" id="energyText">100</div></div>
+              <div class="bar"><div class="bar__fill bar__fill--energy" id="barEnergy" style="--p:100%"></div></div>
             </div>
-          </div>
-
-          <div class="stat">
-            <div class="stat__row">
-              <div class="stat__label">НАСТРОЕНИЕ</div>
-              <div class="stat__value" id="moodText">100</div>
+            <div class="stat">
+              <div class="stat__row"><div class="stat__label">НАСТРОЕНИЕ</div><div class="stat__value" id="moodText">100</div></div>
+              <div class="bar"><div class="bar__fill bar__fill--mood" id="barMood" style="--p:100%"></div></div>
             </div>
-            <div class="bar">
-              <div class="bar__fill bar__fill--mood" id="barMood" style="--p:100%"></div>
-            </div>
-          </div>
-
-          <div class="stat">
-            <div class="stat__row">
-              <div class="stat__label">ЧИСТОТА</div>
-              <div class="stat__value" id="cleanText">100</div>
-            </div>
-            <div class="bar">
-              <div class="bar__fill bar__fill--clean" id="barClean" style="--p:100%"></div>
+            <div class="stat">
+              <div class="stat__row"><div class="stat__label">ЧИСТОТА</div><div class="stat__value" id="cleanText">100</div></div>
+              <div class="bar"><div class="bar__fill bar__fill--clean" id="barClean" style="--p:100%"></div></div>
             </div>
           </div>
 
           <div class="mood-chip" id="moodChip" aria-live="polite"></div>
 
+          <!-- Action buttons matching gamestyle.png icons -->
           <div class="quick-actions">
-            <button class="btn btn--primary" id="btnFeed" type="button">Накормить (50)</button>
-            <button class="btn btn--secondary" id="btnWash" type="button">Умыть (30)</button>
-            <button class="btn btn--ghost" id="btnSpin" type="button">Игрушечный спин (15)</button>
+            <button class="btn btn--primary" id="btnFeed" type="button">🍔 FEED (50)</button>
+            <button class="btn btn--secondary" id="btnWash" type="button">🫧 WASH (30)</button>
+            <button class="btn btn--ghost" id="btnSpin" type="button">🎮 PLAY (15)</button>
           </div>
           <div class="hint">
-            Кликни по коту. Погладь мышкой и повторяй действия иногда — он реагирует на бездействие.
+            Click & pet the cat. It reacts to neglect.
           </div>
         </section>
 
+        <!-- ── CENTER PANEL: PNG Cat ── -->
         <section class="panel panel--center">
-          <h2 class="panel__title">Питомец</h2>
+          <h2 class="panel__title">Labubu Cat</h2>
 
           <div class="pet-stage" id="petStage">
             <div class="pet-bg" aria-hidden="true"></div>
             <div class="pet-shadow" aria-hidden="true"></div>
 
-            <div id="pet" class="cat" role="button" tabindex="0" aria-label="Кот-питомец">
-              <div class="cat__body" aria-hidden="true"></div>
-              <div class="cat__tail" aria-hidden="true"></div>
+            <!-- PNG-assembled cat character -->
+            <div id="pet" class="cat" role="button" tabindex="0" aria-label="Labubu cat pet">
 
-              <div class="cat__head" aria-hidden="true">
-                <div class="cat__ear cat__ear--l"></div>
-                <div class="cat__ear cat__ear--r"></div>
+              <!-- Sparkles layer -->
+              <div class="cat__sparkles" aria-hidden="true"></div>
 
-                <div class="cat__face">
-                  <div class="cat__eye cat__eye--l">
-                    <div class="cat__pupil" id="pupilL"></div>
-                    <div class="cat__shine" aria-hidden="true"></div>
-                  </div>
-                  <div class="cat__eye cat__eye--r">
-                    <div class="cat__pupil" id="pupilR"></div>
-                    <div class="cat__shine" aria-hidden="true"></div>
-                  </div>
+              <!-- Tail (behind body) -->
+              <div class="cat-part cat-part--tail" aria-hidden="true"></div>
 
-                  <div class="cat__nose" aria-hidden="true"></div>
-                  <div class="cat__mouth" aria-hidden="true"></div>
-                </div>
+              <!-- Body (base) -->
+              <div class="cat-part cat-part--body" aria-hidden="true"></div>
 
-                <div class="cat__cheek cat__cheek--l" aria-hidden="true"></div>
-                <div class="cat__cheek cat__cheek--r" aria-hidden="true"></div>
-                <div class="cat__sparkles" aria-hidden="true"></div>
-              </div>
+              <!-- Left arm -->
+              <div class="cat-part cat-part--arm-l" aria-hidden="true"></div>
 
-              <div class="cat__paw cat__paw--l" aria-hidden="true"></div>
-              <div class="cat__paw cat__paw--r" aria-hidden="true"></div>
+              <!-- Right arm -->
+              <div class="cat-part cat-part--arm-r" aria-hidden="true"></div>
 
+              <!-- Legs (front) -->
+              <div class="cat-part cat-part--legs" aria-hidden="true"></div>
+
+              <!-- Head (top) -->
+              <div class="cat-part cat-part--head" aria-hidden="true"></div>
+
+              <!-- Equip layer (hats/glasses/outfits drawn on top) -->
               <div id="equipLayer" class="cat__equip" aria-hidden="true"></div>
             </div>
 
@@ -210,117 +234,152 @@
           </div>
 
           <div class="daily">
-            <div class="daily__title">Ежедневный бонус</div>
+            <div class="daily__title">Daily Bonus</div>
             <div class="daily__row">
               <div class="daily__text" id="dailyText">—</div>
-              <button class="btn btn--gold" id="btnDaily" type="button">Забрать</button>
+              <button class="btn btn--gold" id="btnDaily" type="button">Claim</button>
             </div>
-            <div class="daily__streak" id="dailyStreakText" aria-live="polite">Серия: 0</div>
+            <div class="daily__streak" id="dailyStreakText" aria-live="polite">Streak: 0</div>
           </div>
         </section>
 
+        <!-- ── RIGHT PANEL: Games & Shop ── -->
         <section class="panel panel--right">
-          <h2 class="panel__title">Игры и магазин</h2>
+          <h2 class="panel__title">Games & Shop</h2>
 
           <div class="section">
-            <div class="section__title">Мини-игры</div>
+            <div class="section__title">Mini-Games</div>
             <div class="game-grid">
               <button class="game-card" type="button" data-game="flappy">
                 <div class="game-card__title">Flap-ish</div>
-                <div class="game-card__desc">кликни/тапни, лети между блоками</div>
+                <div class="game-card__desc">click/tap to fly between pipes</div>
                 <div class="game-card__tag">Canvas</div>
               </button>
               <button class="game-card" type="button" data-game="dino">
                 <div class="game-card__title">Turtle Dash</div>
-                <div class="game-card__desc">беги и прыгай, увернись от кактусов</div>
+                <div class="game-card__desc">run and jump, dodge cacti</div>
                 <div class="game-card__tag">Runner</div>
               </button>
               <button class="game-card" type="button" data-game="climb">
                 <div class="game-card__title">Upward Bounce</div>
-                <div class="game-card__desc">вертикальный прыжковый платформер</div>
+                <div class="game-card__desc">vertical jump platformer</div>
                 <div class="game-card__tag">Canvas</div>
               </button>
             </div>
           </div>
 
           <div class="section">
-            <div class="section__title">Прогресс / Разблокировки</div>
+            <div class="section__title">Progress</div>
             <div class="unlock">
               <div class="unlock__row">
-                <span class="unlock__label">Опыт (XP)</span>
-                <span class="unlock__value" id="xpLevelHint">Питомец растёт от взаимодействий и побед в мини-играх.</span>
+                <span class="unlock__label">XP</span>
+                <span class="unlock__value" id="xpLevelHint">Pet grows from interactions and mini-game wins.</span>
               </div>
             </div>
           </div>
 
           <div class="section">
-            <div class="section__title">Магазин (одежда/аксессуары)</div>
+            <div class="section__title">Shop (Accessories)</div>
             <div class="shop">
               <div class="shop__tabs">
-                <button class="tab tab--active" type="button" data-tab="head">Шапки</button>
-                <button class="tab" type="button" data-tab="eyes">Очки</button>
-                <button class="tab" type="button" data-tab="outfit">Костюмы</button>
+                <button class="tab tab--active" type="button" data-tab="head">Hats</button>
+                <button class="tab" type="button" data-tab="eyes">Glasses</button>
+                <button class="tab" type="button" data-tab="outfit">Outfits</button>
               </div>
               <div class="shop__list" id="shopList"></div>
             </div>
           </div>
 
           <div class="footer-note">
-            Никаких копий Talking Tom. Всё сделано ванильным HTML/CSS/JS (LocalStorage).
+            Pure vanilla HTML/CSS/JS — no backend, works on GitHub Pages.
           </div>
         </section>
       </main>
     </div>
 
-    <!-- ═══════════════════════════════════════════════
-         GAME MODAL
-         ═══════════════════════════════════════════════ -->
+    <!-- ══ GAME MODAL ══ -->
     <div id="gameModal" class="modal" aria-hidden="true">
       <div class="modal__content">
         <div class="modal__head">
-          <div class="modal__title" id="modalTitle">Мини-игра</div>
-          <button class="icon-btn" id="btnCloseModal" type="button" aria-label="Закрыть">✕</button>
+          <div class="modal__title" id="modalTitle">Mini-Game</div>
+          <button class="icon-btn" id="btnCloseModal" type="button" aria-label="Close">✕</button>
         </div>
         <div class="modal__body">
           <canvas id="gameCanvas" width="960" height="520"></canvas>
           <div class="modal__hud">
             <div class="modal__hudLine" id="modalHudLine">—</div>
-            <button class="btn btn--primary" id="btnStartGame" type="button">Начать</button>
-            <button class="btn btn--ghost" id="btnBackGame" type="button">Назад</button>
+            <button class="btn btn--primary" id="btnStartGame" type="button">Start</button>
+            <button class="btn btn--ghost" id="btnBackGame" type="button">Back</button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ═══════════════════════════════════════════════
-         SHARE MODAL
-         ═══════════════════════════════════════════════ -->
+    <!-- ══ SHARE MODAL ══ -->
     <div id="shareModal" class="modal" aria-hidden="true">
       <div class="modal__content modal__content--share">
         <div class="modal__head">
-          <div class="modal__title">Поделиться котиком</div>
-          <button class="icon-btn" id="btnCloseShare" type="button" aria-label="Закрыть">✕</button>
+          <div class="modal__title">Share Cat</div>
+          <button class="icon-btn" id="btnCloseShare" type="button" aria-label="Close">✕</button>
         </div>
         <div class="modal__body">
-          <canvas id="shareCanvas" width="900" height="520" aria-label="Карточка для шаринга"></canvas>
+          <canvas id="shareCanvas" width="900" height="520" aria-label="Share card"></canvas>
           <div class="modal__hud">
-            <div class="modal__hudLine" id="shareMeta">Сгенерируй карточку и скачай PNG.</div>
-            <button class="btn btn--primary" id="btnGenShare" type="button">Сгенерировать</button>
+            <div class="modal__hudLine" id="shareMeta">Generate card and download PNG.</div>
+            <button class="btn btn--primary" id="btnGenShare" type="button">Generate</button>
           </div>
           <div class="modal__hud">
-            <button class="btn btn--gold" id="btnDownloadShare" type="button">Скачать PNG</button>
-            <button class="btn btn--secondary" id="btnCopyShare" type="button">Скопировать текст</button>
+            <button class="btn btn--gold" id="btnDownloadShare" type="button">Download PNG</button>
+            <button class="btn btn--secondary" id="btnCopyShare" type="button">Copy Text</button>
           </div>
           <div class="modal__hud">
-            <button class="btn btn--ghost" id="btnBackShare" type="button">Готово</button>
-          </div>
-          <div class="footer-note">
-            Вирусность: делай скрин с текущим настроением кота + отправляй друзьям текстом.
+            <button class="btn btn--ghost" id="btnBackShare" type="button">Done</button>
           </div>
         </div>
       </div>
     </div>
 
     <script src="./script.js"></script>
+
+    <!-- Circular ring bridge: sync ring SVGs with the legacy stat values -->
+    <script>
+    (function() {
+      const CIRC = 2 * Math.PI * 25; // ~157 for r=25
+
+      function pctToOffset(pct) {
+        return CIRC - (pct / 100) * CIRC;
+      }
+
+      function syncRings() {
+        const hunger = parseFloat(document.getElementById('hungerText')?.textContent || '80');
+        const energy = parseFloat(document.getElementById('energyText')?.textContent || '40');
+        const mood   = parseFloat(document.getElementById('moodText')?.textContent   || '95');
+        const clean  = parseFloat(document.getElementById('cleanText')?.textContent  || '80');
+
+        const set = (id, pct, labelId) => {
+          const el = document.getElementById(id);
+          if (el) el.style.strokeDashoffset = pctToOffset(pct);
+          const lbl = document.getElementById(labelId);
+          if (lbl) lbl.textContent = Math.round(pct) + '%';
+        };
+
+        set('ringHungerFill', hunger, 'hungerPct');
+        set('ringEnergyFill', energy, 'energyPct');
+        set('ringMoodFill',   mood,   'moodPct');
+        set('ringCleanFill',  clean,  'cleanPct');
+      }
+
+      // Sync every 200ms using MutationObserver for efficiency
+      const targets = ['hungerText','energyText','moodText','cleanText'];
+      const observer = new MutationObserver(syncRings);
+      document.addEventListener('DOMContentLoaded', () => {
+        targets.forEach(id => {
+          const el = document.getElementById(id);
+          if (el) observer.observe(el, { childList: true, characterData: true, subtree: true });
+        });
+        syncRings();
+      });
+    })();
+    </script>
   </body>
 </html>
