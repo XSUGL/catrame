@@ -1,3 +1,209 @@
+/* ================================================================
+   UNBOXING SCREEN — injected before main game logic
+   ================================================================ */
+(function() {
+  'use strict';
+
+  const STORAGE_UNBOXED_KEY = 'toybox_cat_unboxed_v1';
+
+  const screen = document.getElementById('unboxingScreen');
+  const mainApp = document.getElementById('mainApp');
+  const ubBox = document.getElementById('ubBox');
+  const ubStage = document.getElementById('ubStage');
+  const ubHint = document.getElementById('ubHint');
+  const ubParticleCanvas = document.getElementById('ubParticleCanvas');
+
+  // If already unboxed, skip directly to app
+  const alreadyUnboxed = localStorage.getItem(STORAGE_UNBOXED_KEY);
+  if (alreadyUnboxed) {
+    if (screen) { screen.style.display = 'none'; screen.setAttribute('aria-hidden', 'true'); }
+    if (mainApp) mainApp.classList.add('is-visible');
+    return;
+  }
+
+  // Setup particle canvas
+  let pCtx = null;
+  const particles = [];
+  if (ubParticleCanvas) {
+    pCtx = ubParticleCanvas.getContext('2d');
+    function resizeParticleCanvas() {
+      ubParticleCanvas.width = window.innerWidth;
+      ubParticleCanvas.height = window.innerHeight;
+    }
+    resizeParticleCanvas();
+    window.addEventListener('resize', resizeParticleCanvas);
+  }
+
+  // Particle system
+  function spawnParticles(cx, cy, count = 28) {
+    if (!pCtx) return;
+    const palette = [
+      'rgba(122,245,200,.90)', 'rgba(201,184,255,.85)',
+      'rgba(232,162,192,.80)', 'rgba(245,200,66,.88)',
+      'rgba(247,196,160,.75)', 'rgba(255,255,255,.70)',
+    ];
+    for (let i = 0; i < count; i++) {
+      const angle = (Math.PI * 2 * i) / count + (Math.random() - .5) * .6;
+      const speed = 160 + Math.random() * 220;
+      particles.push({
+        x: cx, y: cy,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed - 80,
+        r: 3 + Math.random() * 5,
+        color: palette[Math.floor(Math.random() * palette.length)],
+        life: 1,
+        decay: .6 + Math.random() * .8,
+        gravity: 240,
+      });
+    }
+  }
+
+  function spawnBigBurst(cx, cy) {
+    if (!pCtx) return;
+    const bigPalette = [
+      'rgba(122,245,200,.95)', 'rgba(201,184,255,.90)',
+      'rgba(232,162,192,.85)', 'rgba(245,200,66,.92)',
+    ];
+    for (let i = 0; i < 60; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = 80 + Math.random() * 380;
+      particles.push({
+        x: cx, y: cy,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed - 120,
+        r: 2 + Math.random() * 8,
+        color: bigPalette[Math.floor(Math.random() * bigPalette.length)],
+        life: 1,
+        decay: .35 + Math.random() * .55,
+        gravity: 280,
+      });
+    }
+  }
+
+  let lastPTime = performance.now();
+  function animateParticles(now) {
+    if (!pCtx) return;
+    const dt = Math.min(.05, (now - lastPTime) / 1000);
+    lastPTime = now;
+    pCtx.clearRect(0, 0, ubParticleCanvas.width, ubParticleCanvas.height);
+
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i];
+      p.life -= p.decay * dt;
+      if (p.life <= 0) { particles.splice(i, 1); continue; }
+
+      p.vx *= (1 - dt * 1.8);
+      p.vy += p.gravity * dt;
+      p.x += p.vx * dt;
+      p.y += p.vy * dt;
+
+      pCtx.save();
+      pCtx.globalAlpha = Math.max(0, p.life);
+      pCtx.fillStyle = p.color;
+      pCtx.shadowBlur = 8;
+      pCtx.shadowColor = p.color;
+      pCtx.beginPath();
+      pCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      pCtx.fill();
+      pCtx.restore();
+    }
+
+    requestAnimationFrame(animateParticles);
+  }
+  requestAnimationFrame(animateParticles);
+
+  // Ripple effect on click
+  function createRipple(cx, cy) {
+    const ripple = document.createElement('div');
+    ripple.className = 'ub-ripple';
+    ripple.style.left = cx + 'px';
+    ripple.style.top  = cy + 'px';
+    ripple.style.position = 'fixed';
+    document.body.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 700);
+  }
+
+  // State machine
+  let clickCount = 0;
+  const CLICKS_TO_OPEN = 3;
+  let isOpening = false;
+
+  function getBoxCenter() {
+    const r = ubBox.getBoundingClientRect();
+    return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+  }
+
+  function handleBoxClick(e) {
+    if (isOpening) return;
+
+    const { x, y } = getBoxCenter();
+    createRipple(e.clientX || x, e.clientY || y);
+    spawnParticles(e.clientX || x, e.clientY || y, 18);
+
+    clickCount++;
+
+    // Shake box
+    ubBox.classList.remove('is-shaking');
+    void ubBox.offsetWidth; // reflow
+    ubBox.classList.add('is-shaking');
+
+    setTimeout(() => ubBox.classList.remove('is-shaking'), 350);
+
+    // Update hint
+    if (clickCount < CLICKS_TO_OPEN) {
+      const remaining = CLICKS_TO_OPEN - clickCount;
+      ubHint.innerHTML = `ещё ${remaining} раз${remaining === 1 ? '' : 'а'} <span>•••</span>`;
+    }
+
+    if (clickCount >= CLICKS_TO_OPEN) {
+      openBox();
+    }
+  }
+
+  function openBox() {
+    isOpening = true;
+    const { x, y } = getBoxCenter();
+
+    ubBox.classList.add('is-open');
+    ubHint.innerHTML = '<span style="color:rgba(122,245,200,.85);letter-spacing:.1em;">✦ МОЙ КОТ ✦</span>';
+
+    // Big particle explosion
+    setTimeout(() => spawnBigBurst(x, y), 200);
+    setTimeout(() => spawnBigBurst(x, y - 60), 400);
+
+    // After cat reveal delay, transition to main app
+    setTimeout(() => {
+      screen.classList.add('phase-reveal');
+      mainApp.classList.add('is-visible');
+      localStorage.setItem(STORAGE_UNBOXED_KEY, '1');
+
+      // Remove unboxing screen from DOM after transition
+      setTimeout(() => {
+        if (screen && screen.parentNode) {
+          screen.style.display = 'none';
+          screen.setAttribute('aria-hidden', 'true');
+        }
+      }, 1200);
+    }, 1800);
+  }
+
+  // Keyboard support
+  ubStage.addEventListener('keydown', (e) => {
+    if (e.code === 'Space' || e.code === 'Enter') {
+      e.preventDefault();
+      const r = ubStage.getBoundingClientRect();
+      handleBoxClick({ clientX: r.left + r.width / 2, clientY: r.top + r.height / 2 });
+    }
+  });
+
+  ubStage.addEventListener('click', handleBoxClick);
+  ubStage.addEventListener('touchend', (e) => {
+    e.preventDefault();
+    const t = e.changedTouches[0];
+    handleBoxClick({ clientX: t.clientX, clientY: t.clientY });
+  });
+})();
+
 (() => {
   'use strict';
 
