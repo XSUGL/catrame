@@ -543,8 +543,8 @@ body {
 /* ── PNG CAT ASSEMBLY ── */
 .cat {
   position: relative; 
-  width: 300px; 
-  height: 340px;
+  width: 280px; 
+  height: 300px;
   cursor: pointer; 
   user-select: none; 
   outline: none;
@@ -571,8 +571,8 @@ body {
 
 /* TAIL */
 .cat-part--tail {
-  width: 135px; height: 105px;
-  bottom: 20px; right: -30px;
+  width: 120px; height: 95px;
+  bottom: 25px; right: -22px;
   background-image: url('./tail.png');
   background-size: contain;
   background-position: center;
@@ -586,10 +586,10 @@ body {
   72%     { transform: rotate(-18deg); }
 }
 
-/* BODY - MUCH BIGGER AND ROUNDER */
+/* BODY - MAIN */
 .cat-part--body {
-  width: 210px; height: 210px;
-  bottom: 0px; left: 50%; transform: translateX(-50%);
+  width: 180px; height: 180px;
+  bottom: 10px; left: 50%; transform: translateX(-50%);
   background-image: url('./body-removebg-preview.png');
   background-size: contain;
   z-index: 2;
@@ -597,8 +597,8 @@ body {
 
 /* LEFT ARM */
 .cat-part--arm-l {
-  width: 85px; height: 105px;
-  bottom: 120px; left: -12px;
+  width: 75px; height: 95px;
+  bottom: 95px; left: 5px;
   background-image: url('./armLeft.png');
   background-size: contain;
   transform-origin: 82% 18%;
@@ -612,8 +612,8 @@ body {
 
 /* RIGHT ARM */
 .cat-part--arm-r {
-  width: 85px; height: 105px;
-  bottom: 120px; right: -12px;
+  width: 75px; height: 95px;
+  bottom: 95px; right: 5px;
   background-image: url('./ArmRight.png');
   background-size: contain;
   transform-origin: 18% 18%;
@@ -627,8 +627,8 @@ body {
 
 /* HEAD - SMALLER RELATIVE TO BODY */
 .cat-part--head {
-  width: 220px; height: 190px;
-  top: -12px; left: 50%; transform: translateX(-50%);
+  width: 150px; height: 140px;
+  top: 0px; left: 50%; transform: translateX(-50%);
   background-image: url('./head-removebg-preview.png');
   background-size: contain;
   z-index: 5;
@@ -636,8 +636,8 @@ body {
 
 /* LEFT LEG - SMALL AND CHUBBY */
 .cat-part--leg-l {
-  width: 68px; height: 105px;
-  bottom: 0px; left: 22%;
+  width: 60px; height: 95px;
+  bottom: 0px; left: 28%;
   background-image: url('./legLeft.png');
   background-size: contain;
   z-index: 4;
@@ -645,8 +645,8 @@ body {
 
 /* RIGHT LEG - SMALL AND CHUBBY */
 .cat-part--leg-r {
-  width: 68px; height: 105px;
-  bottom: 0px; right: 22%;
+  width: 60px; height: 95px;
+  bottom: 0px; right: 28%;
   background-image: url('./legRight.png');
   background-size: contain;
   z-index: 4;
