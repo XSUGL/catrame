@@ -388,18 +388,32 @@ body {
 .pet-shadow {
   position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
   width: 190px; height: 30px;
-  background: radial-gradient(ellipse at center, rgba(25,12,4,.55), transparent 68%);
-  filter: blur(3px); opacity: .72;
+  background: radial-gradient(ellipse at center, rgba(25,12,4,.65), transparent 70%);
+  filter: blur(4px);
+  opacity: 0.8;
+  box-shadow: 
+    0 0 40px rgba(220,150,80,.12),
+    0 0 20px rgba(180,100,40,.08);
 }
 
 /* ── PNG CAT ASSEMBLY ── */
 .cat {
-  position: relative; width: 220px; height: 280px;
-  cursor: pointer; user-select: none; outline: none;
+  position: relative; 
+  width: 220px; 
+  height: 280px;
+  cursor: pointer; 
+  user-select: none; 
+  outline: none;
   will-change: transform;
   animation: catBreathe 3.2s ease-in-out infinite;
+  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.20))
+          drop-shadow(0 2px 4px rgba(0,0,0,0.10));
 }
 .cat:active { cursor: grabbing; }
+.cat:hover {
+  filter: drop-shadow(0 12px 24px rgba(0,0,0,0.25))
+          drop-shadow(0 3px 6px rgba(0,0,0,0.15));
+}
 @keyframes catBreathe {
   0%,100% { transform: translateY(0) scale(1); }
   50%     { transform: translateY(-5px) scale(1.008); }
@@ -413,66 +427,85 @@ body {
 
 /* TAIL */
 .cat-part--tail {
-  width: 96px; height: 72px;
-  bottom: 22px; right: -20px;
+  width: 110px; height: 85px;
+  bottom: 15px; right: -25px;
   background-image: url('./tail.png');
-  transform-origin: 18% 48%;
+  background-size: contain;
+  background-position: center;
+  transform-origin: 15% 50%;
   animation: tailWag 2.6s ease-in-out infinite;
+  z-index: 1;
 }
 @keyframes tailWag {
-  0%,100% { transform: rotate(0deg); }
-  38%     { transform: rotate(20deg); }
-  72%     { transform: rotate(-8deg); }
+  0%,100% { transform: rotate(-8deg); }
+  38%     { transform: rotate(18deg); }
+  72%     { transform: rotate(-18deg); }
 }
 
 /* BODY */
 .cat-part--body {
-  width: 155px; height: 195px;
-  bottom: 0; left: 50%; transform: translateX(-50%);
-  background-image: url('./body.png');
+  width: 155px; height: 148px;
+  bottom: 10px; left: 50%; transform: translateX(-50%);
+  background-image: url('./body-removebg-preview.png');
+  background-size: contain;
+  z-index: 2;
 }
 
 /* LEFT ARM */
 .cat-part--arm-l {
-  width: 72px; height: 85px;
-  bottom: 82px; left: -10px;
-  background-image: url('./arms.png');
-  background-position: 18% center;
-  transform-origin: 80% 18%;
+  width: 62px; height: 78px;
+  bottom: 98px; left: -8px;
+  background-image: url('./armLeft.png');
+  background-size: contain;
+  transform-origin: 82% 18%;
   animation: armSwayL 3.2s ease-in-out infinite;
+  z-index: 3;
 }
 @keyframes armSwayL {
   0%,100% { transform: rotate(0deg); }
-  50%     { transform: rotate(6deg) translateY(-2px); }
+  50%     { transform: rotate(7deg) translateY(-2px); }
 }
 
-/* RIGHT ARM (mirrored) */
+/* RIGHT ARM */
 .cat-part--arm-r {
-  width: 72px; height: 85px;
-  bottom: 82px; right: -10px;
-  background-image: url('./arms.png');
-  background-position: 82% center;
-  transform-origin: 20% 18%;
+  width: 62px; height: 78px;
+  bottom: 98px; right: -8px;
+  background-image: url('./ArmRight.png');
+  background-size: contain;
+  transform-origin: 18% 18%;
   animation: armSwayR 3.2s 0.5s ease-in-out infinite;
-  transform: scaleX(-1);
+  z-index: 3;
 }
 @keyframes armSwayR {
-  0%,100% { transform: scaleX(-1) rotate(0deg); }
-  50%     { transform: scaleX(-1) rotate(6deg) translateY(-2px); }
+  0%,100% { transform: rotate(0deg); }
+  50%     { transform: rotate(7deg) translateY(-2px); }
 }
 
 /* HEAD */
 .cat-part--head {
-  width: 185px; height: 165px;
-  top: 0; left: 50%; transform: translateX(-50%);
-  background-image: url('./head.png');
+  width: 175px; height: 148px;
+  top: -8px; left: 50%; transform: translateX(-50%);
+  background-image: url('./head-removebg-preview.png');
+  background-size: contain;
+  z-index: 5;
 }
 
-/* LEGS */
-.cat-part--legs {
-  width: 165px; height: 75px;
-  bottom: -6px; left: 50%; transform: translateX(-50%);
-  background-image: url('./legs.png');
+/* LEFT LEG */
+.cat-part--leg-l {
+  width: 52px; height: 85px;
+  bottom: 0px; left: 28%;
+  background-image: url('./legLeft.png');
+  background-size: contain;
+  z-index: 4;
+}
+
+/* RIGHT LEG */
+.cat-part--leg-r {
+  width: 52px; height: 85px;
+  bottom: 0px; right: 28%;
+  background-image: url('./legRight.png');
+  background-size: contain;
+  z-index: 4;
 }
 
 /* Sparkles overlay */
@@ -501,10 +534,89 @@ body {
   25%     { transform: translateY(2px) rotate(-1.6deg); }
   75%     { transform: translateY(2px) rotate(1.6deg); }
 }
+
+.cat.is-clicked {
+  animation: catBounce 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) 1;
+}
+@keyframes catBounce {
+  0% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-12px) scale(1.05); }
+  100% { transform: translateY(0) scale(1); }
+}
+
 .cat.is-blinking .cat-part--head { filter: brightness(.96); }
 
 /* Equip layer */
 .cat__equip { position: absolute; inset: 0; pointer-events: none; z-index: 15; }
+
+/* Cat assembly visualization */
+.cat__outline {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 7;
+  pointer-events: none;
+}
+
+.cat__pin {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  z-index: 8;
+  pointer-events: none;
+}
+
+.cat__pin-dot {
+  width: 8px;
+  height: 8px;
+  background: rgba(255,255,255,0.8);
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(255,255,255,0.6);
+}
+
+.cat__pin-label {
+  font-size: 10px;
+  color: rgba(255,255,255,0.7);
+  font-weight: 600;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  white-space: nowrap;
+  background: rgba(0,0,0,0.3);
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+.cat__pin--head {
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.cat__pin--body {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.cat__pin--arm-l {
+  top: 35%;
+  left: -18px;
+  transform: translateY(-50%);
+}
+
+.cat__pin--arm-r {
+  top: 35%;
+  right: -18px;
+  transform: translateY(-50%);
+}
+
+.cat__pin--tail {
+  bottom: 25px;
+  right: -35px;
+}
 
 /* Hats — vinyl toy style matching PNG colours */
 .equip-hat {

@@ -639,6 +639,10 @@
     idleStage1Fired = false;
     idleStage2Fired = false;
 
+    // Add bounce animation
+    cat.classList.add('is-clicked');
+    setTimeout(() => cat.classList.remove('is-clicked'), 400);
+
     const { hunger, energy, clean, mood } = state.stats;
     const mode =
       energy < 25 || (mood < 40 && hunger > 35) ? 'sleepy' : hunger < 26 || clean < 26 ? 'angry' : 'happy';
