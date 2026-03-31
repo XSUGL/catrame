@@ -439,6 +439,130 @@ body {
     inset -20px 0 40px rgba(0,0,0,.10);
 }
 
+/* ════════════════════════════════════════════════════════════ */
+/* ROOM ELEMENTS - 3D FURNITURE & DECORATION */
+/* ════════════════════════════════════════════════════════════ */
+
+/* SOFÁ/КРЕСЛО - зеленое сзади */
+.room-sofa {
+  position: absolute;
+  bottom: 100px; left: 50%;
+  width: 280px; height: 90px;
+  background: linear-gradient(180deg, #5a8a7a 0%, #4a7a6a 50%, #3a6a5a 100%);
+  border-radius: 40px 40px 60px 60px;
+  transform: translateX(-50%);
+  box-shadow: 
+    0 20px 50px rgba(50,50,50,.25),
+    inset -30px -20px 40px rgba(0,0,0,.15),
+    inset 30px 20px 40px rgba(255,255,255,.08);
+  z-index: 0;
+}
+
+.room-sofa::before {
+  content: '';
+  position: absolute;
+  top: -15px; left: 0; right: 0;
+  height: 20px;
+  background: linear-gradient(180deg, #6a9a8a, #5a8a7a);
+  border-radius: 40px 40px 10px 10px;
+}
+
+/* ПОЛКА - деревянная слева */
+.room-shelf--left {
+  position: absolute;
+  left: 15px; top: 160px;
+  width: 140px; height: 220px;
+  z-index: 2;
+}
+
+.room-shelf--left::before,
+.room-shelf--left::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  height: 16px;
+  background: linear-gradient(180deg, #9b7c52 0%, #8b6c42 100%);
+  border: 2px solid #6b5532;
+  box-shadow: inset 0 2px 4px rgba(255,255,255,.1), 0 4px 8px rgba(0,0,0,.3);
+}
+
+.room-shelf--left::before {
+  top: 0;
+}
+
+.room-shelf--left::after {
+  bottom: 60px;
+}
+
+/* Третья полка */
+.room-shelf--left .shelf-item:nth-child(3) {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 16px;
+  background: linear-gradient(180deg, #9b7c52 0%, #8b6c42 100%);
+  border: 2px solid #6b5532;
+  box-shadow: inset 0 2px 4px rgba(255,255,255,.1), 0 4px 8px rgba(0,0,0,.3);
+}
+
+/* ФИГУРКИ НА ПОЛКЕ */
+.shelf-item {
+  position: absolute;
+  width: 24px; height: 40px;
+  bottom: 20px;
+  background: linear-gradient(90deg, #c9956a, #b8845a);
+  border-radius: 8px 8px 4px 4px;
+  box-shadow: 0 4px 8px rgba(0,0,0,.3), inset -2px 0 4px rgba(255,255,255,.15);
+}
+
+.shelf-item-1 { left: 15px; }
+.shelf-item-2 { left: 55px; }
+.shelf-item-3 { left: 95px; }
+
+.shelf-item::before {
+  content: '';
+  position: absolute;
+  top: 8px; left: 50%;
+  width: 10px; height: 10px;
+  background: #8a6549;
+  border-radius: 50%;
+  transform: translateX(-50%);
+}
+
+/* КАРТИНЫ */
+.room-painting {
+  position: absolute;
+  background: linear-gradient(135deg, #d9a574 0%, #c99464 100%);
+  border: 4px solid #8b6f47;
+  box-shadow: 0 8px 20px rgba(0,0,0,.3), inset -2px -2px 4px rgba(0,0,0,.2);
+  z-index: 1;
+}
+
+.room-painting--left {
+  width: 100px; height: 80px;
+  left: 50px; top: 120px;
+  background: 
+    linear-gradient(135deg, #4a7a9a 0%, #3a6a8a 100%);
+}
+
+.room-painting--right {
+  width: 140px; height: 100px;
+  right: 40px; top: 110px;
+  background: 
+    linear-gradient(180deg, #87ceeb 0%, #87ceeb 60%, #ffa500 60%, #ff8c00 100%);
+  position: relative;
+}
+
+.room-painting--right::after {
+  content: '';
+  position: absolute;
+  width: 35px; height: 35px;
+  background: radial-gradient(circle at 30% 30%, #ffcc00, #ff9900);
+  border-radius: 50%;
+  top: 40%; left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 10px rgba(255,200,0,.4);
+}
+
 /* ── PNG CAT ASSEMBLY ── */
 .cat {
   position: relative; 

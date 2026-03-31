@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Room Design Reference</title>
+  <style>
+    body { margin: 0; background: #2a2a2a; }
+    canvas { display: block; }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    canvas.width = 1200;
+    canvas.height = 700;
+    
+    // BACKGROUND - Стена
+    const bgGradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+    bgGradient.addColorStop(0, '#6b5b4a');
+    bgGradient.addColorStop(1, '#8b7355');
+    ctx.fillStyle = bgGradient;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    // ПОЛ - Деревянный пол с текстурой
+    ctx.fillStyle = '#9d8b7a';
+    ctx.fillRect(0, 450, canvas.width, 250);
+    
+    // Плинтус
+    ctx.fillStyle = '#4a3f35';
+    ctx.fillRect(0, 445, canvas.width, 8);
+    
+    // Текстура пола - доски
+    ctx.strokeStyle = 'rgba(50,40,30,0.3)';
+    ctx.lineWidth = 2;
+    for (let i = 0; i < 12; i++) {
+      ctx.beginPath();
+      ctx.moveTo(0, 450 + i * 25);
+      ctx.lineTo(canvas.width, 450 + i * 25);
+      ctx.stroke();
+    }
+    
+    // СОФА/КРЕСЛО сзади - серо-зеленое
+    ctx.fillStyle = '#5a7a6a';
+    ctx.beginPath();
+    ctx.ellipse(600, 420, 250, 80, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = '#4a6a5a';
+    ctx.lineWidth = 3;
+    ctx.stroke();
+    
+    // Спинка софы
+    ctx.fillStyle = '#4a6a5a';
+    ctx.beginPath();
+    ctx.ellipse(600, 370, 280, 40, 0, 0, Math.PI * 2);
+    ctx.fill();
+    
+    // ПОЛКА СЛЕВА - деревянная
+    ctx.fillStyle = '#8b6f47';
+    ctx.fillRect(20, 250, 200, 20);
+    ctx.fillRect(20, 310, 200, 20);
+    ctx.fillRect(20, 370, 200, 20);
+    
+    // Кольцо полки
+    ctx.strokeStyle = '#6b5f47';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(20, 250, 200, 20);
+    ctx.strokeRect(20, 310, 200, 20);
+    ctx.strokeRect(20, 370, 200, 20);
+    
+    // ФИГУРКИ на полке - коричневые персонажи
+    ctx.fillStyle = '#c9956a';
+    // Фигурка 1
+    ctx.beginPath();
+    ctx.arc(60, 280, 15, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillRect(55, 295, 10, 15);
+    
+    // Фигурка 2
+    ctx.beginPath();
+    ctx.arc(110, 280, 15, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillRect(105, 295, 10, 15);
+    
+    // Фигурка 3
+    ctx.beginPath();
+    ctx.arc(160, 280, 15, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillRect(155, 295, 10, 15);
+    
+    // КАРТИНА на стене - справа
+    ctx.fillStyle = '#d9a574';
+    ctx.fillRect(850, 120, 200, 150);
+    ctx.strokeStyle = '#8b6f47';
+    ctx.lineWidth = 4;
+    ctx.strokeRect(850, 120, 200, 150);
+    
+    // Содержимое картины - закат
+    ctx.fillStyle = '#87ceeb';
+    ctx.fillRect(860, 130, 180, 90);
+    ctx.fillStyle = '#ffa500';
+    ctx.beginPath();
+    ctx.arc(950, 180, 30, 0, Math.PI * 2);
+    ctx.fill();
+    
+    // КАРТИНА слева
+    ctx.fillStyle = '#d9a574';
+    ctx.fillRect(50, 100, 150, 120);
+    ctx.strokeStyle = '#8b6f47';
+    ctx.lineWidth = 3;
+    ctx.strokeRect(50, 100, 150, 120);
+    
+    ctx.fillStyle = '#4a7a9a';
+    ctx.fillRect(60, 110, 130, 100);
+    
+    // Текст "комната" для справки
+    ctx.fillStyle = 'white';
+    ctx.font = '16px Arial';
+    ctx.fillText('3D Room Reference', 50, 30);
+  </script>
+</body>
+</html>
