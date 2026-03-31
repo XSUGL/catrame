@@ -374,34 +374,69 @@ body {
   position: relative; overflow: hidden;
   display: flex; align-items: center; justify-content: center;
   background: 
-    /* Room floor */
-    linear-gradient(180deg, transparent 0%, rgba(80,50,30,.15) 100%),
-    /* Furniture shadows */
-    radial-gradient(ellipse 600px 300px at 15% 60%, rgba(100,50,20,.12), transparent 55%),
-    radial-gradient(ellipse 500px 400px at 85% 70%, rgba(60,40,30,.10), transparent 60%),
-    /* Wall/background */
-    linear-gradient(175deg, rgba(120,90,60,.25), rgba(85,50,22,.20));
+    /* ─ Предметы на полке слева ─ */
+    radial-gradient(circle 20px at 8% 25%, rgba(220,180,100,.20), transparent 45%),
+    radial-gradient(circle 18px at 12% 28%, rgba(180,140,80,.15), transparent 40%),
+    radial-gradient(circle 22px at 10% 32%, rgba(200,160,100,.18), transparent 45%),
+    
+    /* ─ Картина/зеркало справа вверху ─ */
+    radial-gradient(ellipse 80px 100px at 88% 20%, rgba(200,160,100,.25), transparent 50%),
+    
+    /* ─ Софа/кресло справа ─ */
+    radial-gradient(ellipse 200px 180px at 88% 65%, rgba(140,100,70,.22), transparent 55%),
+    
+    /* ─ Горшок с растением слева ─ */
+    radial-gradient(ellipse 60px 90px at 5% 65%, rgba(100,120,80,.18), transparent 50%),
+    
+    /* ─ Тень пола ─ */
+    linear-gradient(180deg, transparent 50%, rgba(80,50,30,.12) 100%),
+    
+    /* ─ Основной фон стены ─ */
+    linear-gradient(165deg, 
+      rgba(200,170,140,.30) 0%,
+      rgba(180,150,120,.25) 35%,
+      rgba(160,130,100,.20) 70%,
+      rgba(140,110,80,.15) 100%);
   border: 1px solid rgba(255,180,60,.10);
 }
+
 .pet-bg {
   position: absolute; inset: 0;
-  /* Sofá/furniture on right */
+  pointer-events: none;
+  
+  /* ─ Фон комнаты - основной слой ─ */
   background:
-    radial-gradient(ellipse 350px 280px at 85% 55%, rgba(100,80,70,.08), transparent 50%),
-    /* Shelf/furniture on left */
-    radial-gradient(ellipse 280px 350px at 12% 40%, rgba(110,70,40,.07), transparent 48%),
-    /* Ambient light from top */
-    radial-gradient(circle at 50% 15%, rgba(255,235,190,.12), transparent 40%);
+    /* Полутень справа от софы */
+    radial-gradient(ellipse 300px 250px at 95% 55%, 
+      rgba(120,80,50,.08) 0%, transparent 60%),
+    
+    /* Свет/блик слева вверху */
+    radial-gradient(circle 180px at 15% 10%, 
+      rgba(255,240,200,.15) 0%, transparent 55%),
+    
+    /* Мягкое освещение центр */
+    radial-gradient(ellipse 400px 300px at 50% 35%, 
+      rgba(220,190,150,.08) 0%, transparent 65%),
+    
+    /* Тень снизу слева */
+    radial-gradient(ellipse 200px 150px at 10% 85%, 
+      rgba(80,50,30,.10) 0%, transparent 55%);
 }
+
 .pet-shadow {
-  position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
-  width: 220px; height: 35px;
-  background: radial-gradient(ellipse at center, rgba(25,12,4,.72), transparent 70%);
-  filter: blur(5px);
-  opacity: 0.85;
+  position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%);
+  width: 240px; height: 40px;
+  background: 
+    radial-gradient(ellipse 120px 20px at center, 
+      rgba(20,8,2,.80) 0%, 
+      rgba(40,20,10,.40) 40%, 
+      transparent 100%);
+  filter: blur(6px);
+  opacity: 0.9;
   box-shadow: 
-    0 0 50px rgba(220,150,80,.15),
-    0 0 25px rgba(180,100,40,.10);
+    0 0 60px rgba(200,130,70,.18),
+    0 0 30px rgba(150,90,40,.12),
+    inset -20px 0 40px rgba(0,0,0,.10);
 }
 
 /* ── PNG CAT ASSEMBLY ── */
@@ -842,4 +877,47 @@ body {
   body { overflow: auto; }
   .stats-circles { gap: 5px; }
   .stat-ring { width: 52px; height: 52px; }
+}
+
+/* ════════════════════════════════════════════════════════════ */
+/* 3D ROOM DETAILS LAYER */
+/* ════════════════════════════════════════════════════════════ */
+
+.pet-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  
+  /* Left shelf with items - creates depth */
+  background-image:
+    /* Shelf edge */
+    linear-gradient(90deg, transparent 0%, rgba(100,70,40,.15) 8%, transparent 12%),
+    
+    /* Right furniture edge */
+    linear-gradient(90deg, transparent 88%, rgba(80,50,30,.12) 92%, transparent 96%);
+  
+  z-index: 1;
+}
+
+.pet-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  
+  /* Additional atmospheric details */
+  background:
+    /* Highlight on top left (window light) */
+    radial-gradient(ellipse 200px 100px at 10% 8%, 
+      rgba(255,245,220,.12) 0%, transparent 60%),
+    
+    /* Shadow in corners */
+    radial-gradient(ellipse 150px 200px at 2% 50%, 
+      rgba(50,30,20,.08) 0%, transparent 55%),
+    
+    radial-gradient(ellipse 150px 200px at 98% 50%, 
+      rgba(50,30,20,.08) 0%, transparent 55%);
+  
+  z-index: 0;
 }
